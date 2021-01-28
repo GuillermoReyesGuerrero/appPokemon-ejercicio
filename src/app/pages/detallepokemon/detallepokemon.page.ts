@@ -12,6 +12,8 @@ export class DetallepokemonPage implements OnInit {
 
   datos : any;
   nombre: string;
+  datapokemon: any;
+  dataabilities:any;
   abilities : any;
   baseexperence: number;
   forms: any;
@@ -36,22 +38,24 @@ export class DetallepokemonPage implements OnInit {
   ngOnInit() {
       this.dataPokemon.ObtenerUnPokemon(this.datos.url).subscribe(pokemon =>{
         // console.log(pokemon.abilities);
-        this.abilities = pokemon.abilities;
-        this.baseexperence = pokemon.base_experience;
-        this.forms = pokemon.forms;
-        this.id = pokemon.id;
-        this.height = pokemon.height;
-        this.weight = pokemon.weight;
-        this.types = pokemon.types;
-        this.stats = pokemon.stats;
-        this.image = pokemon.sprites.other['official-artwork']['front_default'];
+        this.datapokemon = pokemon;
+        this.abilities = this.datapokemon.abilities;
+        this.baseexperence = this.datapokemon.base_experience;
+        this.forms = this.datapokemon.forms;
+        this.id = this.datapokemon.id;
+        this.height = this.datapokemon.height;
+        this.weight = this.datapokemon.weight;
+        this.types = this.datapokemon.types;
+        this.stats = this.datapokemon.stats;
+        this.image = this.datapokemon.sprites.other['official-artwork']['front_default'];
       });
   }
 
   ability(url){
     console.log(url);
    this.dataPokemon.ObtenerAbility(url).subscribe(async ability => {
-     this.effectentries = ability.effect_entries;
+     this.dataabilities = ability;
+     this.effectentries = this.dataabilities.effect_entries;
     //  console.log(this.effectentries);
      var existeffect = this.effectentries.find(function(exus){
       return exus.language.name === 'en';
